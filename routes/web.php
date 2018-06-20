@@ -31,6 +31,12 @@ Route::namespace('System')->group(function(){
     Route::post('login', 'LoginController@login');
     Route::post('logout', 'LoginController@logout')->name('logout');
     /**
+     * 注册
+     */
+//    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+//    Route::post('register', 'RegisterController@register');
+
+    /**
      * 用户角色权限管理
      */
     Route::resource('user', 'UserController');
