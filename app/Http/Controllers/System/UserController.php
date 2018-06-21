@@ -25,12 +25,13 @@ class UserController extends Controller
 
     /**
      * 获取列表
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
         $params = $request->all();
         $list = $this->userLogic->list($params);
-        print_r($list);exit;
-        return view('home');
+        return view('system.user.list');
     }
 
     /**

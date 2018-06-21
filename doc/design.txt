@@ -1,7 +1,5 @@
-
-1、控制器Auth下的并入system
-2、建立Model目录，迁移app下的model类，config/auth.php和entrust.php需要修改里面model类的命名空间路径
-3、建立Logic目录，逻辑都在logic目录下类文件处理，model仅仅是获取数据
-4、migration中需要填写admin用户的数据
-
+待处理事项：
+1、migration中需要填写admin用户的数据
+2、404、500定制页面
+3、分页样式的定制
 
