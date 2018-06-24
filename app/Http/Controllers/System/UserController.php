@@ -24,57 +24,64 @@ class UserController extends Controller
     }
 
     /**
-     * 获取列表
-     * @param Request $request
+     * 展示用户列表页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
-        $params = $request->all();
-        $list = $this->userLogic->list($params);
+    public function index(){
         return view('system.user.list');
     }
 
     /**
-     * 展示添加页面
+     * 获取列表数据
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function list(Request $request){
+        $params = $request->all();
+//        echo json_encode($params);exit;
+        $list = $this->userLogic->list($params);
+        return response()->json([
+            'code' => $this->userLogic->errorCode,
+            'msg' => $this->userLogic->errorMsg,
+            'data' => $list
+        ]);
+    }
+
+    /**
+     * 展示新增用户页面
      */
     public function create(){
 
     }
 
     /**
-     * 保存新增的数据
+     * 保存新增/修改的用户数据
      */
-    public function store(){
+    public function save(){
 
     }
 
     /**
-     * 获取详情
+     * 获取用户详情信息
+     * @param Request $request
+     * @param int $user_id 用户id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $user_id){
-        $info = $this->userLogic->info($user_id);
-        echo json_encode($info);exit;
-        return view('home');
+    public function info(Request $request, $user_id){
+        return $this->userLogic->info($user_id);
     }
 
     /**
-     * 展示编辑页面
+     * 展示修改用户信息页面
      */
     public function edit(){
 
     }
 
     /**
-     * 保存更新的数据
+     * 删除用户数据
      */
-    public function update(){
-
-    }
-
-    /**
-     * 删除数据
-     */
-    public function destroy(){
+    public function delete(){
 
     }
 }

@@ -1,9 +1,13 @@
 <?php
+/**
+ * 用户模块逻辑处理
+ */
 namespace App\Http\Logic\System;
 
+use App\Http\Logic\BaseLogic;
 use App\Http\Model\System\UserModel;
 
-class UserLogic
+class UserLogic extends BaseLogic
 {
     /**
      * 获取列表数据
@@ -11,8 +15,42 @@ class UserLogic
      * @return array
      */
     public function list($params){
-       $result = UserModel::where($params)->get()->toArray();
-       return $result;
+        $page = $params['page'] ?? 1;
+        $per_page = $params['per_page'] ?? 10;
+        $result = [
+            'total' => 0,
+            'page' => $page,
+            'per_page' => $per_page,
+            'list' => []
+        ];
+        $where = [];
+        if(isset($params['id']) && $params['id'] != ''){
+            $where[] = ['id', '=', intval($params['id'])];
+        }
+        if(!empty($params['name'])){
+            $where[] = ['name', 'regexp', $params['name']];
+        }
+        if(!empty($params['email'])){
+            $where[] = ['email', 'regexp', $params['email']];
+        }
+        if(isset($params['status']) && $params['status'] > 0){
+            $where[] = ['status', '=', intval($params['status'])];
+        }
+//        echo json_encode($where);exit;
+        $total = UserModel::where($where)->count();
+        if($total == 0){
+            return $result;
+        }
+
+        $offset = ($page - 1) * $per_page;
+        $list = UserModel::where($where)->offset($offset)->limit($per_page)->get()->toArray();
+        $result = [
+            'total' => $total,
+            'page' => $page,
+            'per_page' => $per_page,
+            'list' => $list
+        ];
+        return $result;
     }
 
     /**
