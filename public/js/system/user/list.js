@@ -90,7 +90,23 @@ $(function(){
             var total_page = Math.ceil(total/per_page);
             setPage(total_page, current_page);
 
-            // 设置事件关联
+            // 设置修改状态事件处理方法
+            $("#userList").find('.status').on('click', function(){
+                var id = $(this).attr('data-id');
+                var status = $(this).attr('data-status');
+                changeStatus(id, status);
+            });
+
+            //
+            $("#userList").find('.edit').on('click', function(){
+                var id = $(this).attr('data-id');
+                window.location.href = '/user/edit?id='+id;
+            });
+
+            $("#userList").find('.delete').on('click', function(){
+                var id = $(this).attr('data-id');
+                deleteUser(id);
+            });
         }
     }
 
@@ -124,10 +140,22 @@ $(function(){
         });
     }
 
+    /**
+     * 修改用户状态
+     * @param id 用户id
+     * @param status 状态：1-可用；2-不可用
+     */
     function changeStatus(id, status){
         alert('id = '+id+' , status = ' +status);
     }
 
+    /**
+     * 删除用户
+     * @param id 用户id
+     */
+    function deleteUser(id){
+
+    }
 });
 
 

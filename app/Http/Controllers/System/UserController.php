@@ -75,7 +75,7 @@ class UserController extends Controller
      * 展示修改用户信息页面
      */
     public function edit(){
-
+        return view('system.user.edit');
     }
 
     /**
